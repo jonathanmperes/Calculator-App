@@ -9,45 +9,75 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var textFieldOne: UITextField!
-    @IBOutlet weak var textFieldTwo: UITextField!
+    @IBOutlet var textFieldOne: UITextField!
+    @IBOutlet var textFieldTwo: UITextField!
+    @IBOutlet var calculateButtonBottomConstraint: NSLayoutConstraint!
     
-//    @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: UIResponder.keyboardWillChangeFrameNotification,object: nil)
+        configureObserverKeyboardMovement()
         configureTextFields()
         configureTapGesture()
     }
     
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//    }
-//
-//    @objc func keyboardNotification(notification: NSNotification) {
-//        guard let userInfo = notification.userInfo else { return }
-//
-//        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-//        let endFrameY = endFrame?.origin.y ?? 0
-//        let duration: TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-//        let animationCurveRawNSN = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
-//        let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
-//        let animationCurve: UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
-//
-//        if endFrameY >= UIScreen.main.bounds.size.height {
-//            self.keyboardHeightLayoutConstraint?.constant = 0.0
-//        } else {
-//            self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
-//        }
-//
-//        UIView.animate(
-//            withDuration: duration,
-//            delay: TimeInterval(0),
-//            options: animationCurve,
-//            animations: { self.view.layoutIfNeeded() },
-//            completion: nil)
-//    }
+    private func configureObserverKeyboardMovement() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        if textFieldOne.isEditing || textFieldTwo.isEditing {
+            moveViewWithKeyboard(
+                notification: notification,
+                viewBottomConstraint: self.calculateButtonBottomConstraint,
+                keyboardWillShow: true)
+        }
+    }
+        
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        moveViewWithKeyboard(
+            notification: notification,
+            viewBottomConstraint: self.calculateButtonBottomConstraint,
+            keyboardWillShow: false)
+    }
+        
+    func moveViewWithKeyboard(
+        notification: NSNotification,
+        viewBottomConstraint: NSLayoutConstraint,
+        keyboardWillShow: Bool
+    ) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        let keyboardHeight = keyboardSize.height
+            
+        let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+            
+        let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+            
+        if keyboardWillShow {
+            let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0)
+            let bottomConstant: CGFloat = 20
+            viewBottomConstraint.constant = keyboardHeight + (safeAreaExists ? 0 : bottomConstant)
+        } else {
+            viewBottomConstraint.constant = 20
+        }
+            
+        let animator = UIViewPropertyAnimator(
+            duration: keyboardDuration,
+            curve: keyboardCurve) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+            animator.startAnimation()
+        }
     
     private func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap))
