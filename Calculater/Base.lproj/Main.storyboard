@@ -15,22 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFN-bu-Eqn">
-                                <rect key="frame" x="16" y="832" width="398" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.62720043140000004" blue="0.27644494980000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="BR7-yt-OXq"/>
-                                    <constraint firstAttribute="height" constant="50" id="dzB-r6-7cI"/>
-                                </constraints>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Calculate"/>
-                                <connections>
-                                    <action selector="calculateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AFg-I1-7Yp"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0VQ-Zi-xNr">
-                                <rect key="frame" x="16" y="75" width="398" height="108"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0VQ-Zi-xNr">
+                                <rect key="frame" x="16" y="75" width="398" height="807"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6d1-OB-gcQ">
                                         <rect key="frame" x="0.0" y="0.0" width="398" height="50"/>
@@ -41,33 +27,45 @@
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Second value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ovx-Nu-XPz">
-                                        <rect key="frame" x="0.0" y="58" width="398" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="398" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="2CC-NQ-cAk"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQR-qB-9dO">
+                                        <rect key="frame" x="0.0" y="120" width="398" height="627"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFN-bu-Eqn">
+                                        <rect key="frame" x="0.0" y="757" width="398" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.62720043140000004" blue="0.27644494980000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="l2R-A8-Axt"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Calculate"/>
+                                        <connections>
+                                            <action selector="calculateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AFg-I1-7Yp"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RFN-bu-Eqn" secondAttribute="trailing" constant="16" id="7TT-Es-GNr"/>
-                            <constraint firstItem="RFN-bu-Eqn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8Pe-WR-JZE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RFN-bu-Eqn" secondAttribute="trailing" id="Cg7-6S-X1r"/>
-                            <constraint firstItem="RFN-bu-Eqn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RS6-KJ-sF9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RFN-bu-Eqn" secondAttribute="bottom" constant="16" id="Z7c-Qi-f1e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0VQ-Zi-xNr" secondAttribute="bottom" constant="16" id="Qlv-Tm-UhE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0VQ-Zi-xNr" secondAttribute="trailing" constant="16" id="djf-KX-MWe"/>
                             <constraint firstItem="0VQ-Zi-xNr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="irL-Fa-MWL"/>
                             <constraint firstItem="0VQ-Zi-xNr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="kzC-nd-YN9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RFN-bu-Eqn" secondAttribute="trailing" id="sW9-df-o7W"/>
                             <constraint firstItem="0VQ-Zi-xNr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sdN-C5-085"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="calculateButtonBottomConstraint" destination="Z7c-Qi-f1e" id="Ifd-Ig-yzU"/>
+                        <outlet property="calculateButtonBottomConstraint" destination="Qlv-Tm-UhE" id="v68-zr-nVa"/>
                         <outlet property="textFieldOne" destination="6d1-OB-gcQ" id="0D3-5h-k6J"/>
                         <outlet property="textFieldTwo" destination="Ovx-Nu-XPz" id="YD8-gy-osy"/>
                     </connections>
