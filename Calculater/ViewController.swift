@@ -19,6 +19,19 @@ class ViewController: UIViewController {
     @IBOutlet var subtractButton: UIButton!
     @IBOutlet var additionButton: UIButton!
     
+    @IBOutlet var numOnScreen: UILabel!
+    
+    @IBOutlet var textFieldOne: UITextField?
+    @IBOutlet var textFieldTwo: UITextField?
+    
+    @IBOutlet var calculateButtonBottomConstraint: NSLayoutConstraint!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureTextFields()
+        configureTapGesture()
+    }
+    
     @IBAction func divideButtonTapped(_ sender: Any) {
         operation = "/"
         divideButton.backgroundColor = .purple
@@ -51,14 +64,6 @@ class ViewController: UIViewController {
         additionButton.backgroundColor = .purple
     }
     
-    
-    @IBOutlet var numOnScreen: UILabel!
-    
-    @IBOutlet var textFieldOne: UITextField?
-    @IBOutlet var textFieldTwo: UITextField?
-    
-    @IBOutlet var calculateButtonBottomConstraint: NSLayoutConstraint!
-    
     @IBAction func clearButtonTapped(_ sender: Any) {
         numOnScreen.text = "0"
         textFieldOne?.text = ""
@@ -67,27 +72,6 @@ class ViewController: UIViewController {
         multiplyButton.backgroundColor = .systemBlue
         subtractButton.backgroundColor = .systemBlue
         additionButton.backgroundColor = .systemBlue
-    }
-    
-    func calculate() -> Double {
-        if let firstNumber = textFieldOne?.text! {
-            firstNum = firstNumber
-        }
-        
-        if let secondNumber = textFieldTwo?.text! {
-            secondNum = secondNumber
-        }
-        
-        if operation == "+" && firstNum != "" && secondNum != "" {
-            return Double(firstNum)! + Double(secondNum)!
-        } else if operation == "-" && firstNum != "" && secondNum != "" {
-            return Double(firstNum)! - Double(secondNum)!
-        } else if operation == "*" && firstNum != "" && secondNum != "" {
-            return Double(firstNum)! * Double(secondNum)!
-        } else if operation == "/" && firstNum != "" && secondNum != "" {
-            return Double(firstNum)! / Double(secondNum)!
-        }
-        return 0
     }
     
     @IBAction func calculateButtonTapped(_ sender: Any) {
@@ -101,10 +85,25 @@ class ViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureTextFields()
-        configureTapGesture()
+    private func calculate() -> Double {
+        if let firstNumber = textFieldOne?.text {
+            firstNum = firstNumber
+        }
+        
+        if let secondNumber = textFieldTwo?.text {
+            secondNum = secondNumber
+        }
+        
+        if operation == "+" && !firstNum.isEmpty && !secondNum.isEmpty {
+            return Double(firstNum)! + Double(secondNum)!
+        } else if operation == "-" && !firstNum.isEmpty && !secondNum.isEmpty {
+            return Double(firstNum)! - Double(secondNum)!
+        } else if operation == "*" && !firstNum.isEmpty && !secondNum.isEmpty {
+            return Double(firstNum)! * Double(secondNum)!
+        } else if operation == "/" && !firstNum.isEmpty && !secondNum.isEmpty {
+            return Double(firstNum)! / Double(secondNum)!
+        }
+        return 0
     }
         
     private func configureTapGesture() {
