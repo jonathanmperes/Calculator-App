@@ -9,9 +9,64 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBAction func divideButtonTapped(_ sender: Any) {
+        operation = "/"
+    }
+    
+    @IBAction func multiplyButtonTapped(_ sender: Any) {
+        operation = "*"
+    }
+    
+    
+    @IBAction func subtractButtonTapped(_ sender: Any) {
+        operation = "-"
+    }
+    
+    @IBAction func additionButtonTapped(_ sender: Any) {
+        operation = "+"
+    }
+    
+    @IBOutlet weak var numOnScreen: UILabel!
     @IBOutlet var textFieldOne: UITextField!
     @IBOutlet var textFieldTwo: UITextField!
     @IBOutlet var calculateButtonBottomConstraint: NSLayoutConstraint!
+    
+    var firstNum = ""
+    var operation: String = ""
+    var secondNum = ""
+    var resultNum: String = "0"
+    
+    @IBAction func clearButtonTapped(_ sender: Any) {
+        numOnScreen.text = "0"
+        textFieldOne.text = ""
+        textFieldTwo.text = ""
+        secondNum = ""
+    }
+    
+    func calculate() -> Double {
+        let firstNumber = String(textFieldOne.text!)
+        firstNum = firstNumber
+        
+        let secondNumber = String(textFieldTwo.text!)
+        secondNum = secondNumber
+        
+        if operation == "+" {
+            return Double(firstNum)! + Double(secondNum)!
+        } else if operation == "-" {
+            return Double(firstNum)! - Double(secondNum)!
+        } else if operation == "*"  {
+            return Double(firstNum)! * Double(secondNum)!
+        } else if operation == "/" {
+            return Double(firstNum)! / Double(secondNum)!
+        }
+        return 0
+    }
+    
+    @IBAction func calculateButtonTapped(_ sender: Any) {
+        view.endEditing(true)
+        resultNum = String(calculate())
+        numOnScreen.text = resultNum
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,16 +146,6 @@ class ViewController: UIViewController {
     private func configureTextFields() {
         textFieldOne.delegate = self
         textFieldTwo.delegate = self
-    }
-    
-    @IBAction func calculateButtonTapped(_ sender: Any) {
-        view.endEditing(true)
-        
-        let firstNumber = String(textFieldOne.text!) 
-        print(firstNumber)
-        
-        let secondNumber = String(textFieldTwo.text!) 
-        print(secondNumber)
     }
 }
 
