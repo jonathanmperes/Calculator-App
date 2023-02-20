@@ -77,12 +77,7 @@ class ViewController: UIViewController {
     @IBAction func calculateButtonTapped(_ sender: Any) {
         view.endEditing(true)
         resultNum = String(calculate())
-        let numArray = resultNum.components(separatedBy: ".")
-        if numArray[1] == "0" {
-            numOnScreen.text = numArray[0]
-        } else {
-            numOnScreen.text = resultNum
-        }
+        formatResultNum()
     }
     
     private func calculate() -> Double {
@@ -106,12 +101,23 @@ class ViewController: UIViewController {
         return 0
     }
     
+    private func formatResultNum() {
+        let numArray = resultNum.components(separatedBy: ".")
+        if numArray[1] == "0" {
+            numOnScreen.text = numArray[0]
+        } else {
+            numOnScreen.text = resultNum
+        }
+    }
+    
     private func checkEmptyValues() -> Bool {
         return !firstNum.isEmpty && !secondNum.isEmpty
     }
         
     private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap))
+        let tapGesture = UITapGestureRecognizer(
+            target: self, action: #selector(ViewController.handleTap)
+        )
         view.addGestureRecognizer(tapGesture)
     }
     
