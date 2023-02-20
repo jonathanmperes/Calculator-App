@@ -94,16 +94,20 @@ class ViewController: UIViewController {
             secondNum = secondNumber
         }
         
-        if operation == "+" && !firstNum.isEmpty && !secondNum.isEmpty {
+        if operation == "+" && checkEmptyValues() {
             return Double(firstNum)! + Double(secondNum)!
-        } else if operation == "-" && !firstNum.isEmpty && !secondNum.isEmpty {
+        } else if operation == "-" && checkEmptyValues() {
             return Double(firstNum)! - Double(secondNum)!
-        } else if operation == "*" && !firstNum.isEmpty && !secondNum.isEmpty {
+        } else if operation == "*" && checkEmptyValues() {
             return Double(firstNum)! * Double(secondNum)!
-        } else if operation == "/" && !firstNum.isEmpty && !secondNum.isEmpty {
+        } else if operation == "/" && checkEmptyValues() {
             return Double(firstNum)! / Double(secondNum)!
         }
         return 0
+    }
+    
+    private func checkEmptyValues() -> Bool {
+        return !firstNum.isEmpty && !secondNum.isEmpty
     }
         
     private func configureTapGesture() {
